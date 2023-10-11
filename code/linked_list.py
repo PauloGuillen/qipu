@@ -3,8 +3,7 @@
 
 class OutOfBoundsException(Exception):
     def __init__(self):
-        self.message = "Out of bounds Exception"
-        super().__init__(self.message)
+        print("Out of bounds Exception")
 
 
 class LinkedListNode(object):
@@ -124,6 +123,8 @@ class LinkedList(object):
         node = self._head
         value = node.value
         self._head = node.next
+        if self._head == None:
+            self._tail = None
         self._len -= 1
         del node
         return value
@@ -137,8 +138,7 @@ class LinkedList(object):
         if index > self._len - 1:
             try:
                 raise OutOfBoundsException
-            except OutOfBoundsException as ex:
-                print(ex)
+            except:
                 return None
 
         node = self._head
@@ -146,7 +146,6 @@ class LinkedList(object):
             node = node.next
         return node.value
         
-
 
     def toList(self):
         """
@@ -202,9 +201,6 @@ if __name__ == "__main__":
 
     v = ll.getValueAt(4)
     assert(v == 3)
-
-    v = ll.getValueAt(8)
-    print("getValueAt: ", v)
 
     v = ll.removeFirst()
     assert(v == -1)
