@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*
 
 class OutOfBoundsException(Exception):
-    pass
-
+    def __init__(self):
+        self.message = "Out of bounds Exception"
+        super().__init__(self.message)
 
 
 class LinkedListNode(object):
@@ -133,7 +134,13 @@ class LinkedList(object):
         Esta função deve retornar o valor de um nó na posição definida por INDEX.
         Se o index for maior do que o tamanho da lista, retornar OutOfBoundsException
         """
-        len = self._len
+        if index > self._len - 1:
+            try:
+                raise OutOfBoundsException
+            except OutOfBoundsException as ex:
+                print(ex)
+                return None
+
         node = self._head
         for i in range(index):
             node = node.next
@@ -192,16 +199,16 @@ if __name__ == "__main__":
 
     ll.insert (-1)
     assert(ll.toList() == [-1, 0, 1, 2, 3])
-    # print(ll.toList())
 
-    v = ll.getValueAt(3)
+    v = ll.getValueAt(4)
+    assert(v == 3)
+
+    v = ll.getValueAt(8)
     print("getValueAt: ", v)
 
     v = ll.removeFirst()
     assert(v == -1)
     assert(ll.toList() == [0, 1, 2, 3])
-
-    # print(ll.toList())
 
     v = ll.removeFirst()
     assert(v == 0)
